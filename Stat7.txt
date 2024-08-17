@@ -1,0 +1,222 @@
+Q1
+import scipy.stats as stats
+import math
+
+# Given data
+sample_mean = 50
+sample_std_dev = 5
+sample_size = 30  # Assume sample size is 30
+
+# Calculate the critical value for 95% confidence interval
+confidence_level = 0.95
+z_critical = stats.norm.ppf((1 + confidence_level) / 2)
+
+# Calculate the margin of error
+margin_of_error = z_critical * (sample_std_dev / math.sqrt(sample_size))
+
+# Calculate the confidence interval
+lower_bound = sample_mean - margin_of_error
+upper_bound = sample_mean + margin_of_error
+
+confidence_interval = (lower_bound, upper_bound)
+print(f"95% Confidence Interval: {confidence_interval}")
+Interpretation:
+
+The confidence interval provides a range where we are 95% confident that the true population mean falls within this interval. If the interval is (48.21, 51.79), it means we are 95% confident that the population mean is between 48.21 and 51.79.
+
+Q2
+import scipy.stats as stats
+
+# Observed frequencies
+observed = [30, 28, 25, 10, 12, 35]  # Example observed counts
+
+# Expected proportions
+expected_proportions = [0.20, 0.20, 0.20, 0.10, 0.10, 0.20]
+total = sum(observed)
+expected = [p * total for p in expected_proportions]
+
+# Chi-square test
+chi2_stat, p_value = stats.chisquare(f_obs=observed, f_exp=expected)
+print(f"Chi-square Statistic: {chi2_stat}")
+print(f"P-value: {p_value}")
+
+# Check significance
+alpha = 0.05
+if p_value < alpha:
+    print("Reject the null hypothesis: The distribution does not match the expected distribution.")
+else:
+    print("Fail to reject the null hypothesis: The distribution matches the expected distribution.")
+
+Q3
+Group A	Group B
+Outcome 1	20	60
+Outcome 2	15	140
+Outcome 3	10	30
+python
+Copy code
+import numpy as np
+import scipy.stats as stats
+
+# Contingency table
+data = np.array([[20, 60], [15, 140], [10, 30]])
+
+# Chi-square test for independence
+chi2_stat, p_value, _, _ = stats.chi2_contingency(data)
+print(f"Chi-square Statistic: {chi2_stat}")
+print(f"P-value: {p_value}")
+
+# Check significance
+alpha = 0.05
+if p_value < alpha:
+    print("Reject the null hypothesis: There is an association between the variables.")
+else:
+    print("Fail to reject the null hypothesis: There is no significant association between the variables.")
+
+Q4
+import statsmodels.api as sm
+
+# Given data
+n = 500  # sample size
+x = 60   # number of smokers
+p_hat = x / n
+
+# Confidence interval
+conf_int = sm.proportion.proportion_confint(x, n, alpha=0.05, method='wilson')
+print(f"95% Confidence Interval: {conf_int}")
+
+Q5
+sample_mean = 75
+sample_std_dev = 12
+sample_size = 30  # Assume sample size is 30
+
+# Calculate the critical value for 90% confidence interval
+confidence_level = 0.90
+z_critical = stats.norm.ppf((1 + confidence_level) / 2)
+
+# Calculate the margin of error
+margin_of_error = z_critical * (sample_std_dev / math.sqrt(sample_size))
+
+# Calculate the confidence interval
+lower_bound = sample_mean - margin_of_error
+upper_bound = sample_mean + margin_of_error
+
+confidence_interval = (lower_bound, upper_bound)
+print(f"90% Confidence Interval: {confidence_interval}")
+Interpretation:
+
+The confidence interval provides a range where we are 90% confident that the true population mean falls within this interval.
+
+Q6
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Parameters
+df = 10
+chi2_stat = 15
+
+# Chi-square distribution
+x = np.linspace(0, 30, 1000)
+pdf = stats.chi2.pdf(x, df)
+
+# Plot
+plt.plot(x, pdf, 'b-', label=f'Chi-square df={df}')
+plt.fill_between(x, pdf, where=(x >= chi2_stat), color='red', alpha=0.5, label=f'Area for chi2 >= {chi2_stat}')
+plt.axvline(chi2_stat, color='red', linestyle='--', label=f'chi2 = {chi2_stat}')
+plt.xlabel('Chi-square Statistic')
+plt.ylabel('Probability Density')
+plt.title('Chi-square Distribution with 10 Degrees of Freedom')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+Q7
+n = 1000  # sample size
+x = 520   # number of Coke preferers
+p_hat = x / n
+
+# Confidence interval
+conf_int = sm.proportion.proportion_confint(x, n, alpha=0.01, method='wilson')
+print(f"99% Confidence Interval: {conf_int}")
+
+Q8
+observed = [45, 55]  # 45 tails, 55 heads
+
+# Expected frequencies (fair coin)
+expected = [50, 50]
+
+# Chi-square test
+chi2_stat, p_value = stats.chisquare(f_obs=observed, f_exp=expected)
+print(f"Chi-square Statistic: {chi2_stat}")
+print(f"P-value: {p_value}")
+
+# Check significance
+alpha = 0.05
+if p_value < alpha:
+    print("Reject the null hypothesis: The coin is biased.")
+else:
+    print("Fail to reject the null hypothesis: The coin is fair.")
+Q9: Conduct a chi-square test for independence for smoking status and lung cancer diagnosis.
+python
+Copy code
+# Contingency table
+data = np.array([[60, 30], [140, 170]])
+
+# Chi-square test for independence
+chi2_stat, p_value, _, _ = stats.chi2_contingency(data)
+print(f"Chi-square Statistic: {chi2_stat}")
+print(f"P-value: {p_value}")
+
+# Check significance
+alpha = 0.05
+if p_value < alpha:
+    print("Reject the null hypothesis: There is an association between smoking status and lung cancer diagnosis.")
+else:
+    print("Fail to reject the null hypothesis: There is no significant association between smoking status and lung cancer diagnosis.")
+
+Q10:
+
+Milk Chocolate	Dark Chocolate	White Chocolate
+U.S.	200	150	150
+U.K.	180	170	150
+python
+Copy code
+# Contingency table
+data = np.array([[200, 150, 150], [180, 170, 150]])
+
+# Chi-square test for independence
+chi2_stat, p_value, _, _ = stats.chi2_contingency(data)
+print(f"Chi-square Statistic: {chi2_stat}")
+print(f"P-value: {p_value}")
+
+# Check significance
+alpha = 0.01
+if p_value < alpha:
+    print("Reject the null hypothesis: There is an association between chocolate preference and country of origin.")
+else:
+    print("Fail to reject the null hypothesis: There is no significant association between chocolate preference and country of origin.")
+
+Q11:
+
+sample_mean = 72
+sample_std_dev = 10
+sample_size = 30
+population_mean = 70
+
+# Calculate t-statistic
+t_stat = (sample_mean - population_mean) / (sample_std_dev / math.sqrt(sample_size))
+
+# Degrees of freedom
+df = sample_size - 1
+
+# Calculate p-value
+p_value = 2 * (1 - stats.t.cdf(abs(t_stat), df=df))
+
+print(f"T-statistic: {t_stat}")
+print(f"P-value: {p_value}")
+
+# Check significance
+alpha = 0.05
+if p_value < alpha:
+    print("Reject the null hypothesis: The population mean is significantly different from 70.")
+else:
+    print("Fail to reject the null hypothesis: The population mean is not significantly different")

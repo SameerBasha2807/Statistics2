@@ -1,0 +1,172 @@
+Q1: 
+
+Independence: The samples from different groups must be independent of each other.
+
+Violation Example: If the samples are taken from the same subjects at different times or if there is any dependence between samples, the results may be biased.
+Normality: The data in each group should be approximately normally distributed.
+
+Violation Example: If the data is heavily skewed or has outliers, it can affect the validity of the ANOVA results.
+Homogeneity of Variances: The variances among the groups should be approximately equal.
+
+Violation Example: If one group has much larger or smaller variance compared to others, it can lead to incorrect conclusions.
+Impact of Violations:
+
+Violations can lead to incorrect conclusions, such as falsely detecting significant differences or missing true effects. Remedies may include transforming the data, using non-parametric tests, or applying robust statistical methods.
+
+Q2
+One-Way ANOVA:
+
+Use: To compare means across multiple groups based on one independent variable.
+Example: Comparing test scores from students taught using different teaching methods.
+Two-Way ANOVA:
+
+Use: To examine the influence of two independent variables on a dependent variable and their interaction effects.
+Example: Assessing the effects of diet type and exercise level on weight loss.
+Repeated Measures ANOVA:
+
+Use: To compare means across multiple measurements from the same subjects.
+Example: Evaluating the effect of different treatments over multiple time points on blood pressure.
+
+Q3
+
+Partitioning of Variance:
+
+Total Sum of Squares (SST): Total variation in the data.
+Explained Sum of Squares (SSE): Variation explained by the independent variable(s).
+Residual Sum of Squares (SSR): Variation not explained by the independent variable(s).
+Importance:
+
+Understanding how variance is partitioned helps in assessing how well the model explains the variability in the data and whether the differences among group means are statistically significant.
+
+Q4
+import numpy as np
+import pandas as pd
+from scipy import stats
+
+# Example data
+data = pd.DataFrame({
+    'group': ['A', 'A', 'A', 'B', 'B', 'B', 'C', 'C', 'C'],
+    'value': [10, 12, 13, 20, 22, 19, 30, 32, 31]
+})
+
+# Calculate SST
+overall_mean = data['value'].mean()
+SST = np.sum((data['value'] - overall_mean) ** 2)
+
+# Calculate SSE
+group_means = data.groupby('group')['value'].mean()
+SSE = np.sum([len(data[data['group'] == g]) * (group_means[g] - overall_mean) ** 2 for g in group_means])
+
+# Calculate SSR
+SSR = SST - SSE
+
+print(f"SST: {SST}")
+print(f"SSE: {SSE}")
+print(f"SSR: {SSR}")
+
+Q5
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+
+# Example data
+data = pd.DataFrame({
+    'program': ['A', 'A', 'A', 'B', 'B', 'B', 'C', 'C', 'C'],
+    'experience': ['novice', 'novice', 'experienced', 'novice', 'experienced', 'experienced', 'novice', 'experienced', 'experienced'],
+    'time': [50, 55, 53, 60, 62, 61, 70, 72, 71]
+})
+
+# Fit the model
+model = smf.ols('time ~ C(program) * C(experience)', data=data).fit()
+anova_table = sm.stats.anova_lm(model, typ=2)
+
+print(anova_table)
+
+Q6
+Given: F-statistic = 5.23, p-value = 0.02
+
+Conclusion: Since the p-value is less than 0.05, you reject the null hypothesis. This indicates that there are significant differences between at least two of the group means.
+
+Q7
+Methods:
+
+Listwise Deletion: Removing subjects with missing data.
+
+Consequence: Can lead to loss of valuable information and potential bias if the missing data is not missing at random.
+Imputation: Filling in missing values based on other data.
+
+Consequence: May introduce bias or distort the data distribution.
+Best Practice:
+
+Use appropriate imputation methods or robust statistical techniques and carefully assess the impact of missing data on your results.
+
+Q8
+Tukey's HSD (Honestly Significant Difference):
+
+Use: When comparing all pairs of group means.
+Example: After finding significant results in a one-way ANOVA, use Tukey’s test to identify which specific groups differ.
+Bonferroni Correction:
+
+Use: When conducting multiple comparisons and adjusting for Type I error.
+Example: After a two-way ANOVA with multiple pairwise comparisons.
+
+Q9# Example data
+data = pd.DataFrame({
+    'diet': ['A']*15 + ['B']*15 + ['C']*20,
+    'weight_loss': np.random.normal(loc=5, scale=2, size=15).tolist() +
+                   np.random.normal(loc=6, scale=2, size=15).tolist() +
+                   np.random.normal(loc=7, scale=2, size=20).tolist()
+})
+
+# Perform ANOVA
+anova = smf.ols('weight_loss ~ C(diet)', data=data).fit()
+anova_table = sm.stats.anova_lm(anova, typ=2)
+
+print(anova_table)
+Interpretation:
+
+If the p-value is less than 0.05, then there are significant differences in mean weight loss among the diets.
+
+Q10
+data = pd.DataFrame({
+    'program': ['A']*10 + ['B']*10 + ['C']*10 + ['A']*10 + ['B']*10 + ['C']*10,
+    'experience': ['novice']*30 + ['experienced']*30,
+    'time': np.random.normal(loc=50, scale=5, size=30).tolist() +
+            np.random.normal(loc=55, scale=5, size=30).tolist()
+})
+
+# Perform Two-Way ANOVA
+model = smf.ols('time ~ C(program) * C(experience)', data=data).fit()
+anova_table = sm.stats.anova_lm(model, typ=2)
+
+print(anova_table)
+Interpretation:
+
+Check the F-statistics and p-values for main effects and interaction effects. Significant p-values indicate the presence of effects or interactions.
+
+Q11from scipy import stats
+
+# Example data
+control_scores = np.random.normal(loc=70, scale=10, size=50)
+experimental_scores = np.random.normal(loc=75, scale=10, size=50)
+
+# Perform t-test
+t_stat, p_value = stats.ttest_ind(control_scores, experimental_scores)
+print(f"T-statistic: {t_stat}")
+print(f"P-value: {p_value}")
+
+# Post-hoc test is not necessary here as only two groups are compared.
+
+Q12
+from statsmodels.stats.anova import AnovaRM
+
+# Example data
+data = pd.DataFrame({
+    'store': ['A']*10 + ['B']*10 + ['C']*10,
+    'day': np.arange(1, 31),
+    'sales': np.random.normal(loc=100, scale=15, size=30)
+})
+
+# Perform Repeated Measures ANOVA
+model = AnovaRM(data, 'sales', 'day', within=['store'])
+anova_table = model.fit()
+print(anova_table)

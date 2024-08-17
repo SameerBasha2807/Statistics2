@@ -1,0 +1,168 @@
+Q1
+import numpy as np
+from scipy import stats
+
+def f_test_variance(data1, data2):
+    # Calculate variances
+    var1 = np.var(data1, ddof=1)
+    var2 = np.var(data2, ddof=1)
+    
+    # Calculate degrees of freedom
+    df1 = len(data1) - 1
+    df2 = len(data2) - 1
+    
+    # Calculate F-value
+    f_value = var1 / var2
+    
+    # Calculate p-value
+    p_value = stats.f.sf(f_value, df1, df2)
+    
+    return f_value, p_value
+
+# Example usage
+data1 = [24, 25, 28, 23, 22, 20, 27]
+data2 = [31, 33, 35, 30, 32, 36]
+f_value, p_value = f_test_variance(data1, data2)
+print(f"F-value: {f_value:.4f}, p-value: {p_value:.4f}")
+
+Q2
+def critical_f_value(alpha, df1, df2):
+    # Two-tailed test, so divide alpha by 2
+    critical_value = stats.f.ppf(1 - alpha / 2, df1, df2)
+    return critical_value
+
+# Example usage
+alpha = 0.05
+df1 = 10
+df2 = 15
+critical_value = critical_f_value(alpha, df1, df2)
+print(f"Critical F-value: {critical_value:.4f}")
+
+Q3def f_test_from_samples(mean1, var1, n1, mean2, var2, n2):
+    # Generate random samples
+    data1 = np.random.normal(mean1, np.sqrt(var1), n1)
+    data2 = np.random.normal(mean2, np.sqrt(var2), n2)
+    
+    # Perform F-test
+    f_value, p_value = f_test_variance(data1, data2)
+    
+    # Degrees of freedom
+    df1 = n1 - 1
+    df2 = n2 - 1
+    
+    return f_value, df1, df2, p_value
+
+# Example usage
+mean1, var1, n1 = 50, 10, 20
+mean2, var2, n2 = 50, 15, 25
+f_value, df1, df2, p_value = f_test_from_samples(mean1, var1, n1, mean2, var2, n2)
+print(f"F-value: {f_value:.4f}, df1: {df1}, df2: {df2}, p-value: {p_value:.4f}")
+
+Q4
+def f_test_known_variances(var1, var2, n1, n2, alpha=0.05):
+    # Calculate F-value
+    f_value = var1 / var2
+    
+    # Degrees of freedom
+    df1 = n1 - 1
+    df2 = n2 - 1
+    
+    # Critical F-value
+    critical_value = critical_f_value(alpha, df1, df2)
+    
+    # p-value
+    p_value = stats.f.sf(f_value, df1, df2)
+    
+    return f_value, critical_value, p_value
+
+# Example usage
+var1 = 10
+var2 = 15
+n1 = 12
+n2 = 12
+f_value, critical_value, p_value = f_test_known_variances(var1, var2, n1, n2)
+print(f"F-value: {f_value:.4f}, Critical F-value: {critical_value:.4f}, p-value: {p_value:.4f}")
+
+Q5
+def f_test_claim(sample_var, claimed_var, n, alpha=0.01):
+    # Calculate F-value
+    f_value = sample_var / claimed_var
+    
+    # Degrees of freedom
+    df1 = n - 1
+    df2 = df1  # For this test, the second degree of freedom is also n-1
+    
+    # Critical F-value
+    critical_value = critical_f_value(alpha, df1, df2)
+    
+    # p-value
+    p_value = stats.f.sf(f_value, df1, df2)
+    
+    return f_value, critical_value, p_value
+
+# Example usage
+sample_var = 0.006
+claimed_var = 0.005
+n = 25
+f_value, critical_value, p_value = f_test_claim(sample_var, claimed_var, n)
+print(f"F-value: {f_value:.4f}, Critical F-value: {critical_value:.4f}, p-value: {p_value:.4f}")
+
+Q6
+def f_distribution_params(df1, df2):
+    mean = df2 / (df2 - 2) if df2 > 2 else np.nan
+    variance = (2 * (df2**2) * (df1 + df2 - 2)) / (df1 * (df2 - 2)**2 * (df2 - 4)) if df2 > 4 else np.nan
+    return mean, variance
+
+# Example usage
+df1 = 10
+df2 = 15
+mean, variance = f_distribution_params(df1, df2)
+print(f"Mean: {mean:.4f}, Variance: {variance:.4f}")
+
+Q7
+
+def f_test_unknown_variances(sample_var1, sample_var2, n1, n2, alpha=0.10):
+    # Calculate F-value
+    f_value = sample_var1 / sample_var2
+    
+    # Degrees of freedom
+    df1 = n1 - 1
+    df2 = n2 - 1
+    
+    # Critical F-value
+    critical_value = critical_f_value(alpha, df1, df2)
+    
+    # p-value
+    p_value = stats.f.sf(f_value, df1, df2)
+    
+    return f_value, critical_value, p_value
+
+# Example usage
+sample_var1 = 25
+sample_var2 = 20
+n1 = 10
+n2 = 15
+f_value, critical_value, p_value = f_test_unknown_variances(sample_var1, sample_var2, n1, n2)
+print(f"F-value: {f_value:.4f}, Critical F-value: {critical_value:.4f}, p-value: {p_value:.4f}")
+
+Q8
+data_A = [24, 25, 28, 23, 22, 20, 27]
+data_B = [31, 33, 35, 30, 32, 36]
+
+f_value, p_value = f_test_variance(data_A, data_B)
+df1 = len(data_A) - 1
+df2 = len(data_B) - 1
+alpha = 0.05
+critical_value = critical_f_value(alpha, df1, df2)
+
+print(f"F-value: {f_value:.4f}, Critical F-value: {critical_value:.4f}, p-value: {p_value:.4f}")
+
+Q9
+data_A = [80, 85, 90, 92, 87, 83]
+data_B = [75, 78, 82, 79, 81, 84]
+
+f_value, p_value = f_test_variance(data_A, data_B)
+df1 = len(data_A) - 1
+df2 = len(data_B) - 1
+alpha = 0.01
+critical_value = critical_f_value(alpha, df1, df2)

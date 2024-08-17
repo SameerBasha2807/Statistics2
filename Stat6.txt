@@ -1,0 +1,550 @@
+Q1: What is the difference between a t-test and a z-test? Provide an example scenario where you would use each type of test.
+t-test:
+
+A t-test is used when the sample size is small (typically 
+𝑛
+<
+30
+n<30) or when the population standard deviation is unknown. It uses the t-distribution, which has heavier tails than the normal distribution, making it more appropriate for smaller samples.
+Example Scenario for t-test:
+
+Comparing the average test scores of students in two different classes where the number of students in each class is less than 30, and the population standard deviation is unknown.
+z-test:
+
+A z-test is used when the sample size is large (typically 
+𝑛
+≥
+30
+n≥30) and when the population standard deviation is known. It uses the standard normal distribution (z-distribution).
+Example Scenario for z-test:
+
+Comparing the average height of a large sample of men to a known population mean when the population standard deviation is known.
+
+Q2:
+One-tailed Test:
+
+A one-tailed test assesses whether a sample mean is significantly greater than or less than a population mean in a specific direction. It is used when the research hypothesis specifies a direction of the effect.
+Example:
+
+Testing whether a new drug increases blood pressure. The hypothesis is that the drug leads to an increase (greater than).
+Two-tailed Test:
+
+A two-tailed test assesses whether a sample mean is significantly different from a population mean, in either direction (greater than or less than). It is used when the research hypothesis does not specify a direction.
+Example:
+
+Testing whether a new drug affects blood pressure, without specifying whether it increases or decreases it.
+
+Q3: 
+Type 1 Error:
+
+A Type 1 error occurs when the null hypothesis is rejected when it is actually true. This is also known as a "false positive."
+Example:
+
+A researcher concludes that a new drug is effective in lowering blood pressure when, in reality, it is not (the null hypothesis that the drug has no effect is true).
+Type 2 Error:
+
+A Type 2 error occurs when the null hypothesis is not rejected when it is actually false. This is also known as a "false negative."
+Example:
+
+A researcher concludes that a new drug is not effective in lowering blood pressure when, in reality, it is (the null hypothesis is false, but the researcher fails to reject it).
+
+Q4: 
+Bayes's Theorem:
+
+Bayes's Theorem provides a way to update the probability of a hypothesis based on new evidence. It combines prior knowledge with new data to make more accurate predictions.
+Formula:
+
+𝑃
+(
+𝐴
+∣
+𝐵
+)
+=
+𝑃
+(
+𝐵
+∣
+𝐴
+)
+×
+𝑃
+(
+𝐴
+)
+𝑃
+(
+𝐵
+)
+P(A∣B)= 
+P(B)
+P(B∣A)×P(A)
+​
+ 
+where:
+
+𝑃
+(
+𝐴
+∣
+𝐵
+)
+P(A∣B) is the probability of event 
+𝐴
+A occurring given that 
+𝐵
+B is true.
+𝑃
+(
+𝐵
+∣
+𝐴
+)
+P(B∣A) is the probability of event 
+𝐵
+B occurring given that 
+𝐴
+A is true.
+𝑃
+(
+𝐴
+)
+P(A) is the prior probability of event 
+𝐴
+A.
+𝑃
+(
+𝐵
+)
+P(B) is the total probability of event 
+𝐵
+B.
+Example:
+
+Suppose a doctor knows that 1% of the population has a certain disease (P(Disease) = 0.01). A test for the disease is 99% accurate (P(Test Positive | Disease) = 0.99), but it also has a 5% false positive rate (P(Test Positive | No Disease) = 0.05). If a patient tests positive, Bayes's Theorem can be used to update the probability that the patient actually has the disease.
+
+Q5:
+Confidence Interval:
+
+A confidence interval is a range of values, derived from the sample data, that is likely to contain the population parameter (e.g., mean) with a specified level of confidence (e.g., 95%).
+Formula:
+For the mean:
+
+Confidence Interval
+=
+𝑋
+ˉ
+±
+𝑍
+𝛼
+/
+2
+×
+𝜎
+𝑛
+Confidence Interval= 
+X
+ˉ
+ ±Z 
+α/2
+​
+ × 
+n
+​
+ 
+σ
+​
+ 
+where:
+
+𝑋
+ˉ
+X
+ˉ
+  = sample mean
+𝑍
+𝛼
+/
+2
+Z 
+α/2
+​
+  = z-value corresponding to the desired confidence level
+𝜎
+σ = population standard deviation
+𝑛
+n = sample size
+Example:
+
+Suppose a sample of 50 students has an average test score of 70 with a standard deviation of 10. To calculate the 95% confidence interval for the population mean:
+Confidence Interval
+=
+70
+±
+1.96
+×
+10
+50
+=
+70
+±
+2.77
+Confidence Interval=70±1.96× 
+50
+​
+ 
+10
+​
+ =70±2.77
+So, the 95% confidence interval is (67.23, 72.77).
+
+Q6. 
+Sample Problem:
+
+A certain disease affects 1% of a population. A diagnostic test is 95% accurate (i.e., it correctly identifies 95% of the cases) but also has a 2% false positive rate. If a person tests positive, what is the probability that they actually have the disease?
+Solution:
+Let:
+
+𝑃
+(
+𝐷
+)
+P(D) = Probability of having the disease = 0.01
+𝑃
+(
+¬
+𝐷
+)
+P(¬D) = Probability of not having the disease = 0.99
+𝑃
+(
+𝑇
+∣
+𝐷
+)
+P(T∣D) = Probability of testing positive given having the disease = 0.95
+𝑃
+(
+𝑇
+∣
+¬
+𝐷
+)
+P(T∣¬D) = Probability of testing positive given not having the disease = 0.02
+Using Bayes's Theorem:
+
+𝑃
+(
+𝐷
+∣
+𝑇
+)
+=
+𝑃
+(
+𝑇
+∣
+𝐷
+)
+×
+𝑃
+(
+𝐷
+)
+𝑃
+(
+𝑇
+∣
+𝐷
+)
+×
+𝑃
+(
+𝐷
+)
++
+𝑃
+(
+𝑇
+∣
+¬
+𝐷
+)
+×
+𝑃
+(
+¬
+𝐷
+)
+P(D∣T)= 
+P(T∣D)×P(D)+P(T∣¬D)×P(¬D)
+P(T∣D)×P(D)
+​
+ 
+
+𝑃
+(
+𝐷
+∣
+𝑇
+)
+=
+0.95
+×
+0.01
+(
+0.95
+×
+0.01
+)
++
+(
+0.02
+×
+0.99
+)
+=
+0.0095
+0.0095
++
+0.0198
+=
+0.324
+P(D∣T)= 
+(0.95×0.01)+(0.02×0.99)
+0.95×0.01
+​
+ = 
+0.0095+0.0198
+0.0095
+​
+ =0.324
+So, the probability that a person actually has the disease given a positive test result is approximately 32.4%.
+
+Q7.
+
+Given:
+Sample mean (
+𝑋
+ˉ
+X
+ˉ
+ ) = 50
+Standard deviation (
+𝜎
+σ) = 5
+Sample size (
+𝑛
+n) = Assume 
+𝑛
+=
+30
+n=30 for calculation
+Z-value for 95% confidence (
+𝑍
+𝛼
+/
+2
+Z 
+α/2
+​
+ ) = 1.96
+Using the formula for the confidence interval:
+
+Confidence Interval
+=
+50
+±
+1.96
+×
+5
+30
+=
+50
+±
+1.79
+Confidence Interval=50±1.96× 
+30
+​
+ 
+5
+​
+ =50±1.79
+So, the 95% confidence interval is (48.21, 51.79). This means we are 95% confident that the true population mean lies within this interval.
+
+Q8:
+Margin of Error:
+
+The margin of error is the amount added to and subtracted from the sample mean in a confidence interval. It reflects the uncertainty associated with the estimate.
+Formula:
+
+Margin of Error
+=
+𝑍
+𝛼
+/
+2
+×
+𝜎
+𝑛
+Margin of Error=Z 
+α/2
+​
+ × 
+n
+​
+ 
+σ
+​
+ 
+Effect of Sample Size:
+
+As the sample size increases, the margin of error decreases because the standard error decreases.
+Example:
+
+Suppose a survey is conducted to estimate the average time spent on social media. With a sample size of 100, the margin of error might be ±3 minutes. Increasing the sample size to 1,000 might reduce the margin of error to ±1 minute, providing a more precise estimate.
+
+Q9. Solution:
+
+Given:
+Data point (
+𝑋
+X) = 75
+Population mean (
+𝜇
+μ) = 70
+Population standard deviation (
+𝜎
+σ) = 5
+Formula:
+
+𝑍
+=
+𝑋
+−
+𝜇
+𝜎
+=
+75
+−
+70
+5
+=
+1
+Z= 
+σ
+X−μ
+​
+ = 
+5
+75−70
+​
+ =1
+Interpretation:
+
+A z-score of 1 indicates that the data point is 1 standard deviation above the mean.
+
+Q10. 
+Solution:
+
+Null hypothesis (
+𝐻
+0
+H 
+0
+​
+ ): The drug is not effective, i.e., the mean weight loss is 0.
+Alternative hypothesis (
+𝐻
+1
+H 
+1
+​
+ ): The drug is effective, i.e., the mean weight loss is greater than 0.
+Given:
+
+Sample mean (
+𝑋
+ˉ
+X
+ˉ
+ ) = 6
+Population mean (
+𝜇
+0
+μ 
+0
+​
+ ) = 0
+Sample standard deviation (
+𝑠
+s) = 2.5
+Sample size (
+𝑛
+n) = 50
+t-statistic:
+
+𝑡
+=
+𝑋
+ˉ
+−
+𝜇
+0
+𝑠
+𝑛
+=
+6
+−
+0
+2.5
+50
+=
+16.97
+t= 
+n
+​
+ 
+s
+​
+ 
+X
+ˉ
+ −μ 
+0
+​
+ 
+​
+ = 
+50
+​
+ 
+2.5
+​
+ 
+6−0
+​
+ =16.97
+Degrees of freedom:
+
+𝑑
+𝑓
+=
+𝑛
+−
+1
+=
+50
+−
+1
+=
+49
+df=n−1=50−1=49
+Using a t-table or calculator, the critical value for 
+𝑑
+𝑓
+=
+49
+df=49 at 95% confidence level (one-tailed) is approximately 1.677.
+
+Since 16.97 > 1.677, we reject the null hypothesis, concluding that the drug is significantly effective at a 95% confidence level.
